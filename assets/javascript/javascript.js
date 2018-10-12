@@ -19,11 +19,7 @@ $(document).ready(function() {
       
     var queryUrl = "https://api.nomics.com/v1/exchange-markets/prices?key=2dc3cbe885c38fd8b528ac761e8ad9f1&quote=USD"
     
-    jQuery.ajaxPrefilter(function(options) {
-        if (options.crossDomain && jQuery.support.cors) {
-            options.queryUrl = 'https://cors-anywhere.herokuapp.com/' + options.queryUrl;
-        }
-    });
+    
     
     dropdown("binance");
     dropdown("bitfinex");
@@ -38,10 +34,16 @@ $(document).ready(function() {
     function dropdown (object)
     {
         $.ajax({
+            datatype:'jsonp'
             url : queryUrl,
-            method: "GET"
+            method: "POST"
         }).then(function(response){
         $("." + object ).on('click', function(){
+            jQuery.ajaxPrefilter(function(options) {
+                if (options.crossDomain && jQuery.support.cors) {
+                    options.url = 'https://cors-anywhere.herokuapp.com/' + options.queryurl;
+                }
+            });
     
             $(".drop").remove();
             for(i = 0; i < response.length; i++)
