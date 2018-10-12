@@ -34,7 +34,7 @@ $(document).ready(function() {
     function dropdown (object)
     {
         $.ajax({
-            datatype:'jsonp'
+            datatype:'jsonp',
             url : queryUrl,
             method: "POST"
         }).then(function(response){
