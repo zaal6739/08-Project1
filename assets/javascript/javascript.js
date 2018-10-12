@@ -34,7 +34,7 @@ $(document).ready(function() {
     function dropdown (object)
     {
         $.ajax({
-            datatype:'jsonp'
+            datatype:'jsonp',
             url : queryUrl,
             method: "POST"
         }).then(function(response){
@@ -348,13 +348,18 @@ $(document).ready(function() {
     $('.dropdown-menu a').click(function() {
         var input = $(".btn-secondary:first-child").text();
     $.ajax({
-        dataType:'JSON',
+        dataType:'JSONP',
         url : 'https://api.nomics.com/v1/exchange-markets/prices?key=2dc3cbe885c38fd8b528ac761e8ad9f1&quote=USD'+input,
-        method: 'GET',
+        method: 'POST',
         success: success});
     
     function success(e)
     {
+        jQuery.ajaxPrefilter(function(options) {
+            if (options.crossDomain && jQuery.support.cors) {
+                options.url = 'https://cors-anywhere.herokuapp.com/' + options.queryurl;
+            }
+        });
     var result="";
     $.each(e,function(index,value)
     {
