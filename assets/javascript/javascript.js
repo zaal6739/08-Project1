@@ -31,7 +31,8 @@ function dropdown (object)
 {
     $.ajax({
         url : queryUrl,
-        method: "GET"
+        method: "GET",
+        origin:*
     }).then(function(response){
     $("." + object ).on('click', function(){
 
